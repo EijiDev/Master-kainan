@@ -1,11 +1,15 @@
-import React from "react";
+import Hero from "./components/partials/Hero";
+import Nav from "./components/partials/Nav";
+import FoodMenu from "./components/FoodMenu";
+import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="p-4 bg-gray-100">
-      <h1 className="text-3xl italic font-bold text-center text-blue-600 ">
-        Hello world!
-      </h1>
+    <div>
+      <Nav />
+      <Hero />
+      <FoodMenu />
+      <Contact />
     </div>
   );
 }
