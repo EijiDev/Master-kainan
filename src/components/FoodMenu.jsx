@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Reservation from "./Reservation";
 
-function FoodMenu() {
+function FoodMenu({ onReservationStateChange }) {
   const foods = [
     {
       id: 1,
@@ -88,9 +89,23 @@ function FoodMenu() {
 
   const handleReserve = (food) => {
     setSelectedFood(food);
-    // Handle reservation logic
-    console.log("Reserved:", food.name);
+    onReservationStateChange(true);
   };
+
+  const closeReservation = () => {
+    setSelectedFood(null);
+    onReservationStateChange(false);
+  };
+
+  if (selectedFood) {
+    return (
+      <Reservation
+        selectedFood={selectedFood}
+        onBack={closeReservation}
+        isVisible={true}
+      />
+    );
+  }
 
   return (
     <section className="w-full py-2 bg-gradient-to-b from-white to-slate-100">
