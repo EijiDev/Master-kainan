@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import Reservation from "./Reservation";
 
-function FoodMenu({ onReservationStateChange }) {
+function FoodMenu() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const foods = [
     {
       id: 1,
@@ -88,13 +92,17 @@ function FoodMenu({ onReservationStateChange }) {
   const [selectedFood, setSelectedFood] = useState(null);
 
   const handleReserve = (food) => {
+    if (!isAuthenticated) {
+      // Redirect to login if not authenticated
+      navigate("/login");
+      return;
+    }
+    // Show reservation form if authenticated
     setSelectedFood(food);
-    onReservationStateChange(true);
   };
 
   const closeReservation = () => {
     setSelectedFood(null);
-    onReservationStateChange(false);
   };
 
   if (selectedFood) {

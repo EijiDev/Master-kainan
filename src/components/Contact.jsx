@@ -55,7 +55,7 @@ function Contact() {
           {/* Contact Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {submitted && (
-              <div className="p-4 border border-slate-300 rounded-lg bg-slate-100">
+              <div className="p-4 border rounded-lg border-slate-300 bg-slate-100">
                 <p className="text-sm font-medium text-slate-900">
                   ✓ Message sent! We'll get back to you soon.
                 </p>
