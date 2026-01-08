@@ -12,7 +12,7 @@ function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 rounded-full bg-slate-200 w-96 h-96 mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
       <div className="absolute bottom-0 left-0 rounded-full bg-slate-300 w-96 h-96 mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000"></div>
@@ -23,13 +23,11 @@ function Hero() {
           <div className="space-y-8 text-center">
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
                 Reserve Your Favorite
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-800">
-                  Master Food
-                </span>
+                <span className="block text-white">Master Food</span>
               </h1>
-              <p className="max-w-2xl mx-auto text-lg leading-relaxed text-gray-600 sm:text-xl">
+              <p className="max-w-2xl mx-auto text-lg leading-relaxed text-slate-300 sm:text-xl">
                 Order authentic Filipino dishes - Tapsilog, Sisig, Sinigang, and
                 more. Reserve your meals in advance and enjoy fresh, delicious
                 food.

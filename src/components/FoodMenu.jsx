@@ -116,14 +116,14 @@ function FoodMenu() {
   }
 
   return (
-    <section className="w-full py-2 bg-gradient-to-b from-white to-slate-100">
+    <section className="w-full py-20 bg-gradient-to-b from-white to-slate-100">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
+          <h2 className="mb-3 text-3xl font-bold text-slate-900 md:text-4xl">
             Our Special Menu
           </h2>
-          <p className="mt-3 text-slate-600">
+          <p className="text-slate-600">
             Fresh Filipino dishes prepared with authentic recipes and the finest
             ingredients
           </p>

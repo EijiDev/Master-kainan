@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="text-white shadow-lg bg-gradient-to-r from-slate-700 to-slate-800">
+    <nav className="bg-white shadow-lg text-slate-700">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center gap-2 text-2xl font-bold">
+            <a href="/" className="flex items-center gap-2 text-2xl font-bold text-slate-700">
               09558545146
             </a>
           </div>
@@ -24,7 +26,7 @@ function Nav() {
               <li>
                 <a
                   href="/"
-                  className="transition duration-300 hover:text-slate-200"
+                  className="transition duration-300 hover:text-slate-500"
                 >
                   Home
                 </a>
@@ -32,7 +34,7 @@ function Nav() {
               <li>
                 <a
                   href="/about"
-                  className="transition duration-300 hover:text-slate-200"
+                  className="transition duration-300 hover:text-slate-500"
                 >
                   Food Section
                 </a>
@@ -40,7 +42,7 @@ function Nav() {
               <li>
                 <a
                   href="/contact"
-                  className="transition duration-300 hover:text-slate-200"
+                  className="transition duration-300 hover:text-slate-500"
                 >
                   Contact
                 </a>
@@ -50,7 +52,10 @@ function Nav() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="px-6 py-2 font-semibold text-slate-700 transition duration-300 bg-white rounded-lg hover:bg-slate-50">
+            <button
+              onClick={() => navigate("/login")}
+              className="px-6 py-2 font-semibold text-white transition duration-300 rounded-lg bg-slate-700 hover:bg-slate-800"
+            >
               Reserve Now
             </button>
           </div>
@@ -123,7 +128,7 @@ function Nav() {
                 </a>
               </li>
               <li>
-                <button className="w-full px-4 py-2 mt-2 font-semibold text-slate-700 transition bg-white rounded-lg hover:bg-slate-50">
+                <button className="w-full px-4 py-2 mt-2 font-semibold transition bg-white rounded-lg cursor-pointer text-slate-700 hover:bg-slate-50">
                   Reserve Now
                 </button>
               </li>

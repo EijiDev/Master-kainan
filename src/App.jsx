@@ -7,6 +7,7 @@ import UserProfile from "./components/UserProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Hero from "./components/partials/Hero";
 import Nav from "./components/partials/Nav";
+import Footer from "./components/partials/Footer";
 import FoodMenu from "./components/FoodMenu";
 import Contact from "./components/Contact";
 import "./App.css";
@@ -19,6 +20,7 @@ function HomePage() {
       <Hero />
       <FoodMenu />
       <Contact />
+      <Footer />
     </div>
   );
 }
