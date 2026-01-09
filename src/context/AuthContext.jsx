@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 
 /**
  * Authentication Context
@@ -9,7 +15,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Simulate login
@@ -105,10 +111,19 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setIsAuthenticated(true);
       } catch (err) {
-        logout();
+        localStorage.removeItem("user");
+        localStorage.removeItem("authToken");
+        setUser(null);
+        setIsAuthenticated(false);
       }
     }
-  }, [logout]);
+    setIsLoading(false);
+  }, []);
+
+  // Check auth on component mount
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   const value = {
     user,

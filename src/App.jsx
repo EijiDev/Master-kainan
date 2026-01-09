@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import UserProfile from "./components/UserProfile";
+import Reservation from "./components/Reservation";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Hero from "./components/partials/Hero";
 import Nav from "./components/partials/Nav";
@@ -27,12 +27,6 @@ function HomePage() {
 
 // Main App with routes
 function AppRoutes() {
-  const { checkAuth } = useAuth();
-
-  useEffect(() => {
-    checkAuth(); // Check auth on mount
-  }, [checkAuth]);
-
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -43,6 +37,19 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <UserProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/reservation"
+        element={
+          <ProtectedRoute>
+            <div>
+              <Nav />
+              <Hero />
+              <Reservation isVisible={true} />
+              <Footer />
+            </div>
           </ProtectedRoute>
         }
       />

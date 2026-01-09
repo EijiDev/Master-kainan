@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsOpen(false);
   };
 
   return (
@@ -15,7 +23,10 @@ function Nav() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center gap-2 text-2xl font-bold text-slate-700">
+            <a
+              href="/"
+              className="flex items-center gap-2 text-2xl font-bold text-slate-700"
+            >
               09558545146
             </a>
           </div>
@@ -50,14 +61,31 @@ function Nav() {
             </ul>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button / User Menu */}
           <div className="hidden md:block">
-            <button
-              onClick={() => navigate("/login")}
-              className="px-6 py-2 font-semibold text-white transition duration-300 rounded-lg bg-slate-700 hover:bg-slate-800"
-            >
-              Reserve Now
-            </button>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => navigate("/profile")}
+                  className="px-4 py-2 transition duration-300 text-slate-700 hover:text-slate-500"
+                >
+                  {user?.firstName || "Profile"}
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="px-6 py-2 font-semibold text-white transition duration-300 bg-red-600 rounded-lg hover:bg-red-700"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => navigate("/login")}
+                className="px-6 py-2 font-semibold text-white transition duration-300 rounded-lg bg-slate-700 hover:bg-slate-800"
+              >
+                Login
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,15 +118,28 @@ function Nav() {
               <li>
                 <a
                   href="/"
-                  className="block px-3 py-2 transition rounded hover:bg-gray-800"
+                  className="block px-3 py-2 transition rounded hover:bg-gray-100"
                 >
                   Home
                 </a>
               </li>
+              {isAuthenticated && (
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/profile");
+                      setIsOpen(false);
+                    }}
+                    className="block w-full px-3 py-2 text-left transition rounded hover:bg-gray-100"
+                  >
+                    Profile
+                  </button>
+                </li>
+              )}
               <li>
                 <a
                   href="/restaurants"
-                  className="block px-3 py-2 transition rounded hover:bg-gray-800"
+                  className="block px-3 py-2 transition rounded hover:bg-gray-100"
                 >
                   Restaurants
                 </a>
@@ -106,7 +147,7 @@ function Nav() {
               <li>
                 <a
                   href="/reservations"
-                  className="block px-3 py-2 transition rounded hover:bg-gray-800"
+                  className="block px-3 py-2 transition rounded hover:bg-gray-100"
                 >
                   My Reservations
                 </a>
@@ -114,7 +155,7 @@ function Nav() {
               <li>
                 <a
                   href="/about"
-                  className="block px-3 py-2 transition rounded hover:bg-gray-800"
+                  className="block px-3 py-2 transition rounded hover:bg-gray-100"
                 >
                   About Us
                 </a>
@@ -122,17 +163,33 @@ function Nav() {
               <li>
                 <a
                   href="/contact"
-                  className="block px-3 py-2 transition rounded hover:bg-gray-800"
+                  className="block px-3 py-2 transition rounded hover:bg-gray-100"
                 >
                   Contact
                 </a>
               </li>
-              <li>
-                <button className="w-full px-4 py-2 mt-2 font-semibold transition bg-white rounded-lg cursor-pointer text-slate-700 hover:bg-slate-50">
-                  Reserve Now
-                </button>
-              </li>
+              {isAuthenticated && (
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full px-3 py-2 text-left text-red-600 transition rounded hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </li>
+              )}
             </ul>
+            {!isAuthenticated && (
+              <button
+                onClick={() => {
+                  navigate("/login");
+                  setIsOpen(false);
+                }}
+                className="w-full px-4 py-2 mt-2 font-semibold text-white transition rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-800"
+              >
+                Login
+              </button>
+            )}
           </div>
         )}
       </div>

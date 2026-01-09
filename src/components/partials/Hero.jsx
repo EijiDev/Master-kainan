@@ -1,14 +1,24 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Hero() {
   const [searchFood, setSearchFood] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [searchQuantity, setSearchQuantity] = useState("2");
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Handle search logic
-    console.log("Searching for:", { searchFood, searchDate, searchQuantity });
+    if (!isAuthenticated) {
+      navigate("/login", { state: { from: { pathname: "/reservation" } } });
+      return;
+    }
+    // Navigate to reservation page with search parameters
+    navigate("/reservation", {
+      state: { searchFood, searchDate, searchQuantity },
+    });
   };
 
   return (
@@ -105,7 +115,7 @@ function Hero() {
                 type="submit"
                 className="w-full px-6 py-3 mt-6 font-bold text-white transition duration-300 rounded-lg shadow-lg bg-slate-700 hover:bg-slate-800 hover:shadow-xl"
               >
-                Reserve Now
+                {isAuthenticated ? "Reserve Now" : "Login to Reserve"}
               </button>
             </form>
           </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import FormInput from "./shared/FormInput.jsx";
 import Button from "./shared/Button.jsx";
 import SuccessMessage from "./shared/SuccessMessage.jsx";
@@ -9,6 +10,10 @@ import {
 } from "../constants/validation.js";
 
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -53,16 +58,21 @@ function Login() {
     if (!validateForm()) return;
 
     setIsLoading(true);
-    // Simulate API call (replace with actual API in production)
-    setTimeout(() => {
-      console.log("Login:", {
-        email: formData.email,
-        rememberMe: formData.rememberMe,
-      });
+    try {
+      // Call the login function from auth context
+      await login(formData.email, formData.password);
       setSuccessMessage("Login successful! Redirecting...");
-      setTimeout(() => (window.location.href = "/"), 1500);
+
+      // Redirect to reservation page or home based on where user came from
+      setTimeout(() => {
+        const redirectTo = location.state?.from?.pathname || "/reservation";
+        navigate(redirectTo);
+      }, 1500);
+    } catch (error) {
+      setErrors({ submit: error.message || "Login failed" });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
